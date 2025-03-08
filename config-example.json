@@ -1,0 +1,73 @@
+{
+  "jobSearchTerms": [
+    "Desenvolvedor",
+    "Desenvolvedor Junior",
+    "Desenvolvedor Fullstack",
+    "Desenvolvedor Backend",
+    "Desenvolvedor Frontend",
+    "Engenheiro de Software",
+    "Software Engineer",
+    "Programador",
+    "Desenvolvedor Node.js",
+    "Desenvolvedor TypeScript",
+    "Desenvolvedor Go",
+    "Desenvolvedor Vue.js"
+  ],
+  "locations": [
+    {
+      "city": "Florianópolis",
+      "state": "Santa Catarina",
+      "stateCode": "SC"
+    }
+  ],
+  "searchSettings": {
+    "gupy": {
+      "enabled": true,
+      "apiLimit": 5,
+      "baseUrl": "https://portal.api.gupy.io/api/v1/jobs",
+      "enableRemote": true,
+      "enableLocal": false,
+      "useExcludedTermsOnDescriptions": false
+    },
+    "solides": {
+      "enabled": true,
+      "baseUrl": "https://apigw.solides.com.br/jobs/v3/portal-vacancies-new",
+      "resultsPerPage": 5,
+      "enableRemote": true,
+      "enableLocal": false,
+      "useExcludedTermsOnDescriptions": false
+    }
+  },
+  "outputSettings": {
+    "fileName": "output.json",
+    "fields": {
+      "gupy": [
+        "id",
+        "name",
+        "description",
+        "careerPageName",
+        "publishedDate",
+        "applicationDeadline",
+        "jobUrl"
+      ],
+      "solides": [
+        "id",
+        "title",
+        "description",
+        "companyName",
+        "createdAt",
+        "redirectLink"
+      ]
+    }
+  },
+  "excludedTerms": [
+    "suporte",
+    "estágio",
+    "estagio",
+    "pleno",
+    "sênior",
+    "senior",
+    "especialista",
+    "php"
+  ]
+}

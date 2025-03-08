@@ -1,0 +1,51 @@
+{
+  "jobSearchTerms": [
+    "Desenvolvedor"
+  ],
+  "locations": [
+    {
+      "city": "Florianópolis",
+      "state": "Santa Catarina",
+      "stateCode": "SC"
+    }
+  ],
+  "searchSettings": {
+    "gupy": {
+      "enabled": false,
+      "apiLimit": 10,
+      "baseUrl": "https://portal.api.gupy.io/api/v1/jobs",
+      "enableRemote": true,
+      "enableLocal": false,
+      "useExcludedTermsOnDescriptions": false
+    },
+    "solides": {
+      "enabled": true,
+      "baseUrl": "https://apigw.solides.com.br/jobs/v3/portal-vacancies-new",
+      "resultsPerPage": 10,
+      "enableRemote": false,
+      "enableLocal": true,
+      "useExcludedTermsOnDescriptions": false
+    }
+  },
+  "outputSettings": {
+    "fileName": "output.json",
+    "fields": {
+      "gupy": [
+        "id",
+        "name",
+        "careerPageName",
+        "publishedDate",
+        "applicationDeadline",
+        "jobUrl"
+      ],
+      "solides": [
+        "id",
+        "title",
+        "companyName",
+        "createdAt",
+        "redirectLink"
+      ]
+    }
+  },
+  "excludedTerms": []
+}
