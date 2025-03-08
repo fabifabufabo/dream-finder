@@ -5,29 +5,32 @@ const { saveData } = require('./lib/storage');
 
 (async function () {
   try {
-    let allJobs = {
-      gupy: [],
-      solides: []
-    };
+    const apis = [
+      { name: 'Gupy', status: config.searchSettings.gupy.enabled, fetcher: gupyFetchAndProcessJobs },
+      { name: 'Solides', status: config.searchSettings.solides.enabled, fetcher: solidesFetchAndProcessJobs }
+    ];
 
-    if (config.searchSettings.gupy.enabled) {
-      const gupyJobs = await gupyFetchAndProcessJobs(config.jobSearchTerms, config.locations);
-      allJobs.gupy = gupyJobs;
-      console.log(`Obtidas ${gupyJobs.length} vagas da API Gupy.`);
-    } else {
-      console.log("API Gupy desabilitada nas configurações.");
-    }
+    const jobsResults = await Promise.all(
+      apis.map(async ({ name, status, fetcher }) => {
+        if (!status) {
+          console.log(`API ${name} desabilitada nas configurações.`);
+          return { name, jobs: [] };
+        }
+        const jobs = await fetcher(config.jobSearchTerms, config.locations);
+        console.log(`Obtidas ${jobs.length} vagas da API ${name}.`);
+        return { name, jobs };
+      })
+    );
 
-    if (config.searchSettings.solides.enabled) {
-      const solidesJobs = await solidesFetchAndProcessJobs(config.jobSearchTerms, config.locations);
-      allJobs.solides = solidesJobs;
-      console.log(`Obtidas ${solidesJobs.length} vagas da API Solides.`);
-    } else {
-      console.log("API Solides desabilitada nas configurações.");
-    }
+    let allJobs = {};
 
+    jobsResults.forEach(({ name, jobs }) => {
+      allJobs[name] = jobs;
+    });
+
+    const totalJobs = Object.values(allJobs).reduce((sum, jobs) => sum + jobs.length, 0);
     await saveData(config.outputSettings.fileName, allJobs);
-    console.log(`JSON file has been saved with ${allJobs.gupy.length + allJobs.solides.length} jobs from enabled APIs.`);
+    console.log(`JSON file has been saved with ${totalJobs} jobs from enabled APIs.`);
   } catch (error) {
     console.error("Erro no processamento:", error);
   }
