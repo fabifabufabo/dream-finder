@@ -20,8 +20,8 @@ app.get('/jobs', async (req, res) => {
 
     // Parse query parameters
     const searchTerms = typeof jobSearchTerms === 'string'
-      ? jobSearchTerms.split(',').map(term => term.trim())
-      : Array.isArray(jobSearchTerms) ? jobSearchTerms : config.jobSearchTerms;
+      ? jobSearchTerms.split(',').map(term => term.trim()).filter(Boolean)
+      : Array.isArray(jobSearchTerms) ? jobSearchTerms.filter(Boolean) : config.jobSearchTerms;
 
     const searchLocations = typeof locations === 'string'
       ? JSON.parse(locations)
