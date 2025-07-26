@@ -23,7 +23,6 @@
   "searchSettings": {
     "gupy": {
       "enabled": true,
-      "apiLimit": 5,
       "baseUrl": "https://portal.api.gupy.io/api/v1/jobs",
       "enableRemote": true,
       "enableLocal": false,
